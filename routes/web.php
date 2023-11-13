@@ -37,7 +37,7 @@ Route::prefix('/')->group(function (){
     });
     Route::get('/home',[\App\Http\Controllers\Customer\HomeController::class,'index']);
     Route::get('/about',[\App\Http\Controllers\Customer\VeChungToiController::class,'show']);
-    Route::get('/cart', [\App\Http\Controllers\Customer\GioHangController::class, 'show']);
+    Route::get('/cart', [\App\Http\Controllers\Customer\CartController::class, 'index']);
 });
 //todo: Admin
 

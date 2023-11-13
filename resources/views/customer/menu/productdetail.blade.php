@@ -17,7 +17,7 @@
                         </div>
                         <div class="card-footer">
                             <span class="shop-item-price"><h3 style="text-align: center;"> @if($product['price_product']) {{ $product['price_product']}} @endif</h3></span>
-                            <button class="btn btn-lg btn-block btn-outline-dark shop-item-button" type="button">Thêm vào giỏ hàng </button>
+                            <a href="{url('/cart')}}" class="btn btn-lg btn-block btn-outline-dark shop-item-button" type="button">Thêm vào giỏ hàng </a>
                         </div>
                     </div>
                 </div>

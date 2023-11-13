@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{url('/admin/assets/css/styles.min.css')}}" />
     <link href="{{url('admin/assets/DataTables/datatables.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
     <script src="{{url('admin/assets/DataTables/datatables.min.js')}}"></script>
 </head>
 
@@ -50,16 +51,19 @@
 <script src="{{url('/admin/assets/js/dashboard.js')}}"></script>
 <script src="{{url('/admin/assets/js/manages.js')}}"></script>
 <script src="{{url('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#cms_table").DataTable();
+    $(document).ready(function() {
+        $('#tableData').DataTable();
     });
+</script>
+<script>
     // $(document).on("click",".confirmDeletes", function (){
     //     const name = $(this).attr('name');
     //     return confirm("Bạn chắc chắn muốn xóa " + name + "?");
     //
     // });
-
 </script>
 
 </body>

@@ -6,7 +6,7 @@
             <div class="card-body">
                 <h5 class="card-title fw-semibold mb-4">Thống Kê Số Bàn</h5>
                 <div class="table-responsive mb-3">
-                    <table class="table text-nowrap mb-0 align-middle">
+                    <table id="tableData"  class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
                         <tr>
                             <th class="row-cols-3 border-bottom-0 ">

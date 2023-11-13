@@ -6,9 +6,8 @@
             <div class="card-body">
                 <h5 class="card-title fw-semibold mb-4">Thống Kê Sản Phẩm</h5>
                 <a type="button" class="btn btn-light" style="float: right; display: inline-block" href="{{url('/admin/product/add_edit_product')}}">Thêm</a>
-
                 <div class="table-responsive mb-3">
-                    <table class="table text-nowrap mb-0 align-middle">
+                    <table id="tableData"  class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
                         <tr>
                             <th class="row-cols-3 border-bottom-0 ">

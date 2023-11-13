@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\Customer\TrangChuController::class,'show']);
+Route::get('/',[\App\Http\Controllers\Customer\HomeController::class,'index']);
 //Route::get('/detailproduct', function (){
 //    return view('customer/menu/productdetail');
 //});
@@ -32,7 +32,7 @@ Route::prefix('/')->group(function (){
     Route::match(['get','post'],'/login',[\App\Http\Controllers\Customer\CustomerController::class,'login']);
     Route::prefix('menu')->group(function (){
       Route::get('/productlist',[\App\Http\Controllers\Customer\ProductsController::class,'show']);
-      Route::get('/productdetail',[\App\Http\Controllers\Customer\ProductsController::class,'index']);
+      Route::get ('/productdetail/{name?}',[\App\Http\Controllers\Customer\ProductsController::class,'index']);
 
     });
     Route::get('/home',[\App\Http\Controllers\Customer\HomeController::class,'index']);
@@ -40,8 +40,6 @@ Route::prefix('/')->group(function (){
     Route::get('/cart', [\App\Http\Controllers\Customer\GioHangController::class, 'show']);
 });
 //todo: Admin
-
-
 
 Route::prefix('/admin')->group(function ()
 {

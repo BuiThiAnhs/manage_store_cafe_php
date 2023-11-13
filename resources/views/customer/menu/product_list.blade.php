@@ -5,7 +5,7 @@
     <h1 class="heading mt-9 "> Thực Đơn <span> thực đơn</span></h1>
 
     <div class="box-container">
-        <a href="{{url('/menu/productdetail')}}" class="box">
+        <a href="{{url('/menu/productdetail/')}}" class="box">
             <img src="{{url('customer/assets/image/background_app/menu-1.png')}}" alt="">
             <div class="content">
                 <h3>Bán Chạy</h3>
@@ -13,29 +13,16 @@
             </div>
         </a>
 
-        <a href="#" class="box">
-            <img src="{{url('customer/assets/image/background_app/menu-4.png')}}" alt="">
-            <div class="content">
-                <h3>Café</h3>
-                <p>Xem những sản phẩm cà phê tại đây.</p>
-            </div>
-        </a>
+        @foreach($products as $product)
+            <a href="{{url('/menu/productdetail/'.$product['name'])}}" class="box">
+                <img src="{{url('customer/assets/image/background_app/menu-4.png')}}" alt="">
+                <div class="content">
+                    <h3>{{$product['name']}}</h3>
+                    <p>Xem những sản phẩm  tại đây.</p>
+                </div>
+            </a>
+        @endforeach
 
-        <a href="#" class="box">
-            <img src="{{url('customer/assets/image/background_app/menu-6.png')}}" alt="">
-            <div class="content">
-                <h3>Nước Ép</h3>
-                <p>Xem những sản phẩm nước ép tại đây.</p>
-            </div>
-        </a>
-
-        <a href="#" class="box">
-            <img src="{{url('customer/assets/image/background_app/menu-2.png')}}" alt="">
-            <div class="content">
-                <h3>Bánh Ngọt</h3>
-                <p>Xem những sản phẩm bánh ngọt tại đây.</p>
-            </div>
-        </a>
 
     </div>
 </section>

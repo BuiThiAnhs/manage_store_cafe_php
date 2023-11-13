@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -11,10 +12,29 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, $type = null)
     {
+        $product_type = ProductType::get()->toArray();
         $products = Product::get()->toArray();
-        return view("customer/menu/productdetail")->with(compact('products'));
+        if ($type =="Cà phê")
+        {
+          $title =" Cà Phê";
+
+        }
+        if ($type=="Nước ép"){
+            $title="Nước Ép";
+
+        }
+        if ($type=="Bánh ngọt")
+        {
+            $title="Bánh ngọt";
+        }
+        if ($type=="")
+        {
+            $title="Nổi bật ";
+        }
+
+        return view("customer/menu/productdetail")->with(compact('products','title', "product_type"));
     }
 
     /**
@@ -37,7 +57,8 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        return view("customer/menu/product_list");
+        $products = ProductType::get()->toArray();
+        return view("customer/menu/product_list")->with(compact('products'));
     }
 
     /**

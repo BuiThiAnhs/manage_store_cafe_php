@@ -6,7 +6,7 @@
             <div class="card-body">
                 <h5 class="card-title fw-semibold mb-4">Thống Kê Nguyên Liệu Nhập Kho</h5>
                 <div class="table-responsive mb-3">
-                    <table class="table text-nowrap mb-0 align-middle">
+                    <table id="tableData" class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
                         <tr>
                             <th class="row-cols-3 border-bottom-0 ">
@@ -27,13 +27,17 @@
                             <th class="row-cols-3 border-bottom-0 m-1">
                                 <h6 class="fw-semibold mb-0">Đơn Vị </h6>
                             </th>
-
+                            <th class="row-cols-3 border-bottom-0 m-1">
+                                <h6 class="fw-semibold mb-0">Hành động</h6>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($ingredients as $ingredient)
                             <tr>
-                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0">{{$ingredient['id']}}</h6></td>
+                                <td class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">{{$ingredient['id']}}</h6>
+                                </td>
                                 <td class="border-bottom-0">
                                     <h6 class="fw-semibold mb-1">{{$ingredient['name_ingredient']}}</h6>
                                 </td>
@@ -63,6 +67,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection

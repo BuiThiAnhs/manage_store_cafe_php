@@ -31,13 +31,11 @@ Route::prefix('/')->group(function (){
     Route::get('/logout',[\App\Http\Controllers\Customer\CustomerController::class,'logout']);
     Route::match(['get','post'],'/login',[\App\Http\Controllers\Customer\CustomerController::class,'login']);
     Route::prefix('menu')->group(function (){
-        Route::get('/detailproduct{id}', [\App\Http\Controllers\Customer\SanPhamController::class,'show']);
-        Route::get('/', function (){
-            return view('customer/menu/product_list');
-        });
+      Route::get('/productlist',[\App\Http\Controllers\Customer\ProductsController::class,'show']);
+      Route::get('/productdetail',[\App\Http\Controllers\Customer\ProductsController::class,'index']);
 
     });
-    Route::get('/home',[\App\Http\Controllers\Customer\TrangChuController::class,'show']);
+    Route::get('/home',[\App\Http\Controllers\Customer\HomeController::class,'index']);
     Route::get('/about',[\App\Http\Controllers\Customer\VeChungToiController::class,'show']);
     Route::get('/cart', [\App\Http\Controllers\Customer\GioHangController::class, 'show']);
 });

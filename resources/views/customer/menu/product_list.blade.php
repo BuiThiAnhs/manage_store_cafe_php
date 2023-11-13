@@ -2,10 +2,10 @@
 @section('ui-main')
 
 <section class=" menu " id="menu">
-    <h1 class="heading mt-9 ">our menu <span> menu</span></h1>
+    <h1 class="heading mt-9 "> Thực Đơn <span> thực đơn</span></h1>
 
     <div class="box-container">
-        <a href="#" class="box">
+        <a href="{{url('/menu/productdetail')}}" class="box">
             <img src="{{url('customer/assets/image/background_app/menu-1.png')}}" alt="">
             <div class="content">
                 <h3>Bán Chạy</h3>

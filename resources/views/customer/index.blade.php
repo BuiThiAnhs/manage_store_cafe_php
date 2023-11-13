@@ -42,7 +42,7 @@
 
     <nav class="navbar">
         <a onclick="location.href='/home'">Trang Chủ</a>
-        <a onclick="location.href='/menu'">Thực Đơn</a>
+        <a onclick="location.href='/menu/productlist'">Thực Đơn</a>
         <a onclick="location.href='/about'">Liên Hệ</a>
     </nav>
 
@@ -66,7 +66,7 @@
             <h3>quick links</h3>
             <a onclick="location.href='/home'"><i class="fas fa-arrow-right"></i> home</a>
             <a onclick="location.href='/about'"><i class="fas fa-arrow-right"></i> about</a>
-            <a onclick="location.href='/menu'"><i class="fas fa-arrow-right"></i> menu</a>
+            <a onclick="location.href='/menu/productlist'"><i class="fas fa-arrow-right"></i> menu</a>
         </div>
 
         <div class="box">
@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <div class="credit">Sản phẩm của <span>Nhóm 1</span> | Store Café</div>
+    <div class="credit">Sản phẩm của <span>Nhóm 008</span> | Store Café</div>
 </section>
 
 

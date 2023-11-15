@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('component_products', function (Blueprint $table) {
+            //$table->integer('product_id');
+            //$table->integer('ingredient_id');
             $table->integer('amount');
             $table->timestamps();
         });

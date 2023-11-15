@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ImportItem;
 use App\Models\Ingredient;
 use App\Models\IngredientType;
 use App\Models\Unit;
@@ -24,10 +25,36 @@ class StorageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //todo: Tạo phiếu nhập hàng
-        return view('admin.storage.import_items');
+        $title="Thêm phiếu nhập kho";
+        $import_item = new ImportItem();
+        $message ="Thêm thành công!";
+
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+
+            $ruler=[
+                'id'=>'required',
+                'date_import'=>'required',
+                'total_price'=>'required',
+            ];
+            $customMessages=[
+                'id.required'=>"Bắt buộc nhập mã phiếu nhập",
+                'date_import.required'=>"Bắt buộc nhập thời gian nhập",
+                'total_price.required'=>'Bắt buộc nhập số tiền thanh toán',
+            ];
+            $this->validate($request, $ruler, $customMessages);
+
+            $import_item->id =$data['id'];
+            $import_item->date_import =$data['date_import'];
+            $import_item->total_price =$data['total_price'];
+
+            $import_item->save();
+            return redirect('admin/storage/import_items')->with('success_message', $message );
+        }
+        return view('admin.storage.import_items')->with(compact('title','import_item'));
 
     }
 
@@ -84,8 +111,8 @@ class StorageController extends Controller
             $ingredient->name_ingredient=$data['name_ingredient'];
             $ingredient->price_ingredient=$data['price_ingredient'];
             $ingredient->amount=$data['amount'];
-            $ingredient->type = isset($data['type']) ? $data['type'] : null;
-            $ingredient->unit=isset($data['unit']) ? $data['unit'] : null;;
+            $ingredient->type = isset($data['type']) ? (int)$data['type'] : null;
+            $ingredient->unit= isset($data['unit']) ?  (int)$data['unit'] : null;
 
             $ingredient->save();
             return redirect('admin/storage/count_import')->with('success_message', $message );

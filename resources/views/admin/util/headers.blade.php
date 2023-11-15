@@ -93,7 +93,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link"  onclick="location.href=''"
+                        <a class="sidebar-link"  onclick="location.href='/admin/product/product_formula'"
                            aria-expanded="false">
                 <span>
                  <i class="ti ti-circle-plus"></i>

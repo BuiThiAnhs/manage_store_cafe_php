@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
 use App\Models\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -21,9 +21,31 @@ class CartController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+//        // Validate the request
+//        $request->validate([
+//            'id' => 'required|integer', // Assuming 'id' is the product ID
+//            'name_product' => 'required|string',
+//            'price_product' => 'required|numeric',
+//            // Add other validation rules as needed
+//        ]);
+//        // Add the product to the cart
+//        if ($request->ajax())
+//        {
+//            $product = Product::find($request->productID);
+//            $response['cart']= Cart::add([
+//                'id' => $product->id,
+//                'name_product' => $product->name_product,
+//                'price_product' => $product->price_product,
+//                'image_product' =>$product->image_product
+//                // Add other product details as needed
+//            ]);
+//            $response['amount']= Cart::amount();
+//            $response['total'] = Cart::total();
+//            return $response;
+//        }
+//        return redirect('customer/cart/cart');
     }
 
     /**
@@ -64,5 +86,25 @@ class CartController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+    public function addToCart(Request $request)
+    {
+        if ($request->ajax())
+        {
+            $product = Product::find($request->productId);
+
+            $response = Cart::add([
+                'id' => $product->id,
+                'name' => $product->name_product,
+                'price' => $product->price_product,
+                'qty' => 1, // Số lượng ban đầu
+            ]);
+            $response['count'] = Cart::count();
+            $response['total']=Cart::total();
+
+            return  $response;
+
+        }
+        return back();
     }
 }

@@ -11,22 +11,19 @@
     <div class="cart-items">
 
 {{-- todo: sanphamdathemgiohang--}}
-        @foreach($cartItems as $cart)
-            <div class="cart-row">
+        @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $cart)
+            <div class="cart-row" data-rowId ="{{$cart['rowId']}}">
                 <div class="cart-item cart-column">
-                    <img class="cart-item-image" @if($cart['image_product']) src="{{ asset('customer/assets/image/menu/' . $cart['image_product'])}}"  @endif width="100px" height="100px">
-                    <span class="cart-item-title">{{$cart['name_product']}}</span>
+                    <span class="cart-item-title">{{$cart['name']}}</span>
                 </div>
-                <span class="cart-price cart-column">{{$cart['price_product']}}</span>
+                <span class="cart-price cart-column">{{$cart['price']}}</span>
                 <div class="cart-quantity cart-column">
 
-                    <input class="cart-quantity-input" type="number" @if($cart['aount']) value="{{$cart['amount']}}" @endif >
+                    <input class="cart-quantity-input" type="number" @if($cart['qty']) value="{{$cart['qty']}}" @endif >
                     <button class="btn btn-danger" type="button">REMOVE</button>
                 </div>
             </div>
         @endforeach
-
-
     </div>
     <div class="cart-total">
         <input class="form-check-input primary" type="checkbox" value="" id="checks_table" checked=""name="check_table">
@@ -34,7 +31,8 @@
             Sử dụng tại chỗ.
         </label>
         <strong class="cart-total-title">Thanh Toán</strong>
-        <span class="cart-total-price">0</span>
+        <span class="cart-total-price"> value="${{\Gloudemans\Shoppingcart\Facades\Cart::total()}}"</span>
     </div>
 </section>
+
 @endsection

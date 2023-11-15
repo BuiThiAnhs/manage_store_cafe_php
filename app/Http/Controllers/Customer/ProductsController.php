@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
@@ -15,26 +16,28 @@ class ProductsController extends Controller
     public function index(Request $request, $type = null)
     {
         $product_type = ProductType::get()->toArray();
-        $products = Product::get()->toArray();
-        if ($type =="Cà phê")
-        {
-          $title =" Cà Phê";
 
-        }
-        if ($type=="Nước ép"){
-            $title="Nước Ép";
+        // Initialize query
+        $query = Product::query();
 
-        }
-        if ($type=="Bánh ngọt")
-        {
-            $title="Bánh ngọt";
-        }
-        if ($type=="")
-        {
-            $title="Nổi bật ";
+        // Apply condition based on title
+        if ($type == "Cà phê") {
+            $title = " Cà Phê";
+            $query->where('type', 'Cà phê');
+        } elseif ($type == "Nước ép") {
+            $title = "Nước Ép";
+            $query->where('type', 'Nước ép');
+        } elseif ($type == "Bánh ngọt") {
+            $title = "Bánh ngọt";
+            $query->where('type', 'Bánh ngọt');
+        } elseif ($type == "") {
+            $title = "Nổi bật ";
         }
 
-        return view("customer/menu/productdetail")->with(compact('products','title', "product_type"));
+        // Get paginated results
+        $products = $query->paginate(9);
+
+        return view("customer/menu/productdetail")->with(compact('products', 'title', 'product_type'));
     }
 
     /**
@@ -55,10 +58,12 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show()
     {
-        $products = ProductType::get()->toArray();
-        return view("customer/menu/product_list")->with(compact('products'));
+//      $products = Product::get()->pluck('type');
+        $products = ProductType::get()->pluck('name', 'id');
+
+        return view("customer/menu/product_list")->with(compact( 'products'));
     }
 
     /**

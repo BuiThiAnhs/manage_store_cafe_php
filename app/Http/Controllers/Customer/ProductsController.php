@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Product;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -11,10 +13,31 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, $type = null)
     {
-        $products = Product::get()->toArray();
-        return view("customer/menu/productdetail")->with(compact('products'));
+        $product_type = ProductType::get()->toArray();
+
+        // Initialize query
+        $query = Product::query();
+
+        // Apply condition based on title
+        if ($type == "Cà phê") {
+            $title = " Cà Phê";
+            $query->where('type', 'Cà phê');
+        } elseif ($type == "Nước ép") {
+            $title = "Nước Ép";
+            $query->where('type', 'Nước ép');
+        } elseif ($type == "Bánh ngọt") {
+            $title = "Bánh ngọt";
+            $query->where('type', 'Bánh ngọt');
+        } elseif ($type == "") {
+            $title = "Nổi bật ";
+        }
+
+        // Get paginated results
+        $products = $query->paginate(9);
+
+        return view("customer/menu/productdetail")->with(compact('products', 'title', 'product_type'));
     }
 
     /**
@@ -35,9 +58,12 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show()
     {
-        return view("customer/menu/product_list");
+//      $products = Product::get()->pluck('type');
+        $products = ProductType::get()->pluck('name', 'id');
+
+        return view("customer/menu/product_list")->with(compact( 'products'));
     }
 
     /**

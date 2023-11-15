@@ -1,6 +1,6 @@
 @extends('customer.index')
 @section('ui-main')
-<section class=" home container content-section" style="padding-top: 100px">
+<section class=" menu container content-section" style="padding-top: 150px" >
     <hr>
     <h2 class="section-header">Giỏ Hàng</h2>
     <div class="cart-row">
@@ -11,24 +11,28 @@
     <div class="cart-items">
 
 {{-- todo: sanphamdathemgiohang--}}
-        <div class="cart-row">
-            <div class="cart-item cart-column">
-                <img class="cart-item-image" src="https://coffeeatthree.com/wp-content/uploads/0420-cold-brew-coffee-010.jpg" width="100px" height="100px">
-                <span class="cart-item-title">COLD-BREWED</span>
+        @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $cart)
+            <div class="cart-row" data-rowId ="{{$cart['rowId']}}">
+                <div class="cart-item cart-column">
+                    <span class="cart-item-title">{{$cart['name']}}</span>
+                </div>
+                <span class="cart-price cart-column">{{$cart['price']}}</span>
+                <div class="cart-quantity cart-column">
+
+                    <input class="cart-quantity-input" type="number" @if($cart['qty']) value="{{$cart['qty']}}" @endif >
+                    <button class="btn btn-danger" type="button">REMOVE</button>
+                </div>
             </div>
-            <span class="cart-price cart-column">₹299</span>
-            <div class="cart-quantity cart-column">
-                <input class="cart-quantity-input" type="number" value="1">
-                <button class="btn btn-danger" type="button">REMOVE</button>
-            </div>
-        </div>
-
-
-
+        @endforeach
     </div>
     <div class="cart-total">
+        <input class="form-check-input primary" type="checkbox" value="" id="checks_table" checked=""name="check_table">
+        <label class="form-check-label cart-total-title" for="checks_table">
+            Sử dụng tại chỗ.
+        </label>
         <strong class="cart-total-title">Thanh Toán</strong>
-        <span class="cart-total-price">₹698</span>
+        <span class="cart-total-price"> value="${{\Gloudemans\Shoppingcart\Facades\Cart::total()}}"</span>
     </div>
 </section>
+
 @endsection

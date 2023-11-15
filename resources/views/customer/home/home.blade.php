@@ -15,9 +15,9 @@
     </div>
 
     <div class="image-slider">
-        <img src="../customer/assets/image/background_app/home-img-1.png" alt="">
-        <img src="../customer/assets/image/background_app/home-img-2.png" alt="">
-        <img src="../customer/assets/image/background_app/home-img-3.png" alt="">
+        <img src="{{url('/customer/assets/image/background_app/home-img-1.png')}}" alt="">
+        <img src="{{url('/customer/assets/image/background_app/home-img-2.png')}}" alt="">
+        <img src="{{url('/customer/assets/image/background_app/home-img-3.png')}}" alt="">
     </div>
 </section>
 {{--todo:about us--}}

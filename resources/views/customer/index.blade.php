@@ -22,13 +22,13 @@
 {{--    detail product--}}
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Ubuntu:ital@0;1&display=swap" rel="stylesheet">
 
-    <script src="{url('')}}https://kit.fontawesome.com/cc5e355fff.js" crossorigin="anonymous"></script>
+    <script src="{{url('https://kit.fontawesome.com/cc5e355fff.js')}}" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css')}}" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+   <link rel="stylesheet" href="{{url('https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css')}}">
     <script src="{{url('https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js')}}" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="{{url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')}}" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{url('/customer/assets/detailproduct/css/styles.css')}}">
-    <script src="{{url('customer/assets/detailproduct/cart.js')}}" async></script>
 
 </head>
 
@@ -47,7 +47,7 @@
     </nav>
 
     @if(\Illuminate\Support\Facades\Auth::guard('customer')->check())
-        <a class="btn" onclick="location.href='/cart'"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
+        <a class="btn" onclick="location.href='/cart_add'"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
         <a onclick="location.href='/logout'" class="btn"> Đăng Xuất</a>
     @else
         <a onclick="location.href='/login'" class="btn"> Đăng Nhập</a>
@@ -105,6 +105,23 @@
 
 <!-- Custom JS File Link  -->
 <script src="{{url('customer/assets/js/script.js')}}"></script>
+<script>
+    function addCart(productID) {
+        $.ajax({
+            type :"GET",
+            url:"cart_add",
+            data:{productID: productID},
+            success: function (response) {
+                $('cart-total-price').text('$'+response['total']);
+                var cart_items = $('.cart-items');
+                var cart_items_exist= cart_items.find()
+            },
+            error:function (response) {
+
+            },
+        })
+    }
+</script>
 
 </body>
 

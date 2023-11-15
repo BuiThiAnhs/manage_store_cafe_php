@@ -1,25 +1,75 @@
 @extends('customer.index')
 @section('ui-main')
-    <section class=" menu ">
+    <section class=" menu " @if(empty($product_type['name'])) href= "{{url('/menu/productdetail')}}" @else href ="{{url('/menu/productdetail/'.$product_type['name'])}}" @endif>
+        <h2>{{$title}}</h2>
         <div class="row">
             @foreach($products as $product)
                 <div class="pricing-column col-lg-4 col-md-6 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <span class="shop-item-title"><h3>{{$product['name_product']}}</h3></span>
+                            <span class="shop-item-title" ><h3>@if($product['name_product']) {{ $product['name_product']}} @endif</h3></span>
                         </div>
                         <div class="card-body">
-
-                            <img class="card-image shop-item-image" src="{{ asset('customer/assets/image/menu/' . $product['image_product'])}}" alt="">
-                            <span class="shop-item-price"><h6 style="text-align: center;">{{$product['description_product']}}</h6></span>
+                            <img class="card-image shop-item-image align-items-center"  @if($product['image_product']) src="{{ asset('customer/assets/image/menu/' . $product['image_product'])}}"  @endif alt="">
+                            <span class="shop-item-price mt-2"><h6 style="text-align: center;"> @if($product['description_product']){{$product['description_product']}} @endif </h6></span>
 
                         </div>
                         <div class="card-footer">
-                            <span class="shop-item-price"><h3 style="text-align: center;">{{$product['price_product']}}</h3></span>
-                            <button class="btn btn-lg btn-block btn-outline-dark shop-item-button" type="button">Thêm vào giỏ hàng </button>
+                            <span class="shop-item-price"><h3 style="text-align: center;"> @if($product['price_product']) {{ $product['price_product']}} @endif</h3></span>
+
+                            <a href="javacript:addCart({{$product['id']}})" class="btn btn-lg btn-block btn-outline-dark shop-item-button" type="button" >Thêm vào giỏ hàng</a>
+
+
                         </div>
                     </div>
                 </div>
-        @endforeach
+
+            @endforeach
+        </div>
+        {{ $products->links()}}
     </section>
+    <script>
+        function addCart(productID) {
+            $.ajax({
+                type: "GET",
+                url: "/cart_add",
+                data: { productID: productID },
+                success: function (response) {
+                    $('.cart-quantity-input').text(response['amount']);
+                    $('.cart-total-price').text('$' + response['total']);
+
+                    // Hiển thị thông tin sản phẩm đã thêm vào giỏ hàng
+                    var cartItem = $('.cart-item');
+                    var cartItemData = cartItem.find("div[data-id='" + response['cart'].id + "']");
+
+                    if (cartItemData.length) {
+                        // Nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật thông tin
+                        cartItemData.find('.cart-price').text('$' + response['cart'].price_product.toFixed(2));
+                        cartItemData.find('.cart-quantity-input').val(response['cart'].amount);
+                    } else {
+                        // Nếu sản phẩm chưa tồn tại, thêm mới
+                        var newCartItem = '<div class="cart-row" data-id="' + response['cart'].id + '">\n' +
+                            '    <div class="cart-item cart-column">\n' +
+                            '        <img class="cart-item-image" src="{{ asset('customer/assets/image/menu/' . $product['image_product']) }}" width="100px" height="100px">\n' +
+                            '        <span class="cart-item-title">' + response['cart'].name_product + '</span>\n' +
+                            '    </div>\n' +
+                            '    <span class="cart-price cart-column">$' + response['cart'].price_product.toFixed(2) + '</span>\n' +
+                            '    <div class="cart-quantity cart-column">\n' +
+                            '        <input class="cart-quantity-input" type="number" value="' + response['cart'].amount + '">\n' +
+                            '        <button class="btn btn-danger" type="button">REMOVE</button>\n' +
+                            '    </div>\n' +
+                            '</div>';
+                        cartItem.append(newCartItem);
+                    }
+
+                    alert("Thêm thành công!!");
+                    console.log(response);
+                },
+                error: function (response) {
+                    alert("Thêm lỗi !!!");
+                    console.log(response);
+                },
+            });
+        }
+    </script>
 @endsection

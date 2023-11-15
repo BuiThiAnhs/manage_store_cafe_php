@@ -5,10 +5,16 @@
         <div class="card-body">
             <form >
                 <h5 class="card-title fw-semibold mb-6 ">Phiếu thành phần-sản phẩm</h5>
-                <button class="btn " onclick="add_items()"> </button>
+                <button class="btn " onclick=""> </button>
                 <div class="mb-3">
                     <label for="name_products" class="form-label">Tên sản phẩm</label>
-                    <input type="text" class="form-control" id="name_products">
+                    <div style="height: 40px;">
+                        <select id="product_select" class="form-select" name="type" style="height: 100%;">
+                            @foreach($product as $product_id => $product_name)
+                                <option>{{  $product_name }} </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="image_products" class="form-label">Ảnh sản phẩm</label>

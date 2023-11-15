@@ -24,6 +24,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        $product = Product::get()->pluck('name_product', 'id');
+        return view('admin.products.product_formula')->with(compact('product'));
     }
 
     /**
@@ -31,6 +33,15 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        return view('admin.products.product_formula');
+    }
+
+    public function components(Request $request){
+        $productId = $request->input('productId');
+
+
+
+        //return view('components.table', ['components' => $components]);
     }
 
     /**

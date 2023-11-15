@@ -65,7 +65,7 @@ Route::prefix('/admin')->group(function ()
         Route::prefix('product')->group(function (){
             Route::get('/count', [\App\Http\Controllers\Admin\ProductsController::class,'index']);
             Route::get('/product_formula', [\App\Http\Controllers\Admin\ProductsController::class,'create']);
-            Route::post('/product_formula', [\App\Http\Controllers\Admin\ProductsController::class,'store']);
+            Route::post('/product_formula', [\App\Http\Controllers\Admin\ProductsController::class,'components']);
 
             Route::match(['get','post'],'/add_edit_product/{id?}',[\App\Http\Controllers\Admin\ProductsController::class,'edit']);
 

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\Customer\TrangChuController::class,'show']);
+Route::get('/',[\App\Http\Controllers\Customer\HomeController::class,'show']);
 //Route::get('/detailproduct', function (){
 //    return view('customer/menu/productdetail');
 //});

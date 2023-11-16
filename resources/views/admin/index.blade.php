@@ -66,15 +66,18 @@
         $('#product_select').select2();
     });
     $('#product_select').on('change', function() {
+
         var selectedProductId = $(this).val();
         console.log('Selected productId:', selectedProductId);
         displayProductComponents(selectedProductId);
     });
     function displayProductComponents(productId) {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
             url: '/admin/product/product_formula',
             method: 'POST',
-            data: { productId: productId },
+            data: { productId: productId, _token: csrfToken},
             success: function(data) {
                 $('#componentsTableContainer').html(data);
             },
@@ -82,6 +85,42 @@
                 console.log('Error fetching product components.');
             }
         });
+    }
+
+    function confirmSelection(){
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        var product_id = $('#product_select').val();
+        var ingredientData = [];
+
+        $('#tableData tbody tr').each(function() {
+            var ingredientId = $(this).find('th').data('ingredient-id');
+            var quantity = $(this).find('input').val();
+
+            if (parseInt(quantity) > 0) {
+                ingredientData.push({
+                    product_id: product_id,
+                    ingredient_id: ingredientId,
+                    amount: quantity
+                });
+            }
+        });
+
+        if (ingredientData.length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/product/insert_ingredients',
+                data: {ingredients: ingredientData, _token: csrfToken},
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        } else {
+            // No ingredients to insert
+            alert('Please select at least one ingredient.');
+        }
     }
 </script>
 <script>

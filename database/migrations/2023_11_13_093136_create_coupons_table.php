@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->date('date_coupons');
-            $table->integer('price_coupons');
+            $table->string('name');
+            $table->integer('qty');
             $table->string('price_total');
             $table->timestamps();
         });
@@ -22,6 +22,7 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
      */
     public function down(): void
     {

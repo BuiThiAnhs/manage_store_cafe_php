@@ -11,16 +11,14 @@
                             <thead class="text-dark fs-4">
                             <tr>
                                 <th class="row-cols-3 border-bottom-0 ">
-                                    <h6 class="fw-semibold mb-0 m-1 ">Mã đơn </h6>
+                                    <h6 class="fw-semibold mb-0 m-1 ">Tên sản phẩm </h6>
                                 </th>
-                                <th class=" row-cols-3border-bottom-0 m-1 p-3">
-                                    <h6 class="fw-semibold mb-0">Ngày bán</h6>
-                                </th>
+
                                 <th class=" row-cols-3 border-bottom-0 m-1">
                                     <h6 class="fw-semibold mb-0">Thanh toán</h6>
                                 </th>
                                 <th class="row-cols-3 border-bottom-0 m-1">
-                                    <h6 class="fw-semibold mb-0">Xem chi tiết</h6>
+                                    <h6 class="fw-semibold mb-0">Ngày thanh toán</h6>
                                 </th>
                             </tr>
                             </thead>
@@ -28,14 +26,10 @@
                             <tr>
                                 <td class="border-bottom-0"><h6 class="fw-semibold mb-0">1</h6></td>
                                 <td class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-1">Sunil Joshi</h6>
-                                    <span class="fw-normal">Web Designer</span>
+                                    <h6 class="fw-semibold mb-0">Sunil Joshi</h6>
                                 </td>
                                 <td class="border-bottom-0">
                                     <p class="mb-0 fw-normal">Elite Admin</p>
-                                </td>
-                                <td class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
                                 </td>
                             </tr>
                             </tbody>

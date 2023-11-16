@@ -13,7 +13,9 @@
     <link href="{{url('admin/assets/DataTables/datatables.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="{{url('admin/assets/DataTables/datatables.min.js')}}"></script>
+
 </head>
 
 <body>
@@ -42,6 +44,7 @@
     </div>
 </div>
 <script src=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="{{url('admin/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{url('admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{url('admin/assets/js/sidebarmenu.js')}}"></script>
@@ -51,12 +54,35 @@
 <script src="{{url('/admin/assets/js/dashboard.js')}}"></script>
 <script src="{{url('/admin/assets/js/manages.js')}}"></script>
 <script src="{{url('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#tableData').DataTable();
     });
+
+    $(document).ready(function() {
+        $('#product_select').select2();
+    });
+    $('#product_select').on('change', function() {
+        var selectedProductId = $(this).val();
+        console.log('Selected productId:', selectedProductId);
+        displayProductComponents(selectedProductId);
+    });
+    function displayProductComponents(productId) {
+        $.ajax({
+            url: '/admin/product/product_formula',
+            method: 'POST',
+            data: { productId: productId },
+            success: function(data) {
+                $('#componentsTableContainer').html(data);
+            },
+            error: function() {
+                console.log('Error fetching product components.');
+            }
+        });
+    }
 </script>
 <script>
     // $(document).on("click",".confirmDeletes", function (){

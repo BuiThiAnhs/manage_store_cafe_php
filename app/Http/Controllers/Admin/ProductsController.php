@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ComponentProduct;
+use App\Models\Ingredient;
+use App\Models\IngredientType;
 use App\Models\Product;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
@@ -24,13 +27,19 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        $ingredients = Ingredient::get()->pluck('name_ingredient', 'id');
+
+        $product = Product::get()->pluck('name_product', 'id');
+        return view('admin.products.product_formula')->with(compact('product', 'ingredients'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+    public function components(Request $request){
+        $ingredients = Ingredient::get()->pluck('name_ingredient', 'id');
+        $productId = $request->input('productId');
+
+        $components = ComponentProduct::where('product_id', $productId)->get()->pluck('ingredient_id', 'product_id');
+
+        return view('admin.products.product_formula')->with(compact('productId', 'components', 'ingredients'));
     }
 
     /**

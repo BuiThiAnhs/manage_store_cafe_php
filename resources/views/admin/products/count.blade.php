@@ -11,7 +11,7 @@
                         <thead class="text-dark fs-4">
                         <tr>
                             <th class="row-cols-3 border-bottom-0 ">
-                                <h6 class="fw-semibold mb-0 m-1">Mã Sản Phẩm </h6>
+                                <h6 class="fw-semibold mb-0 m-1">ID</h6>
                             </th>
                             <th class=" row-cols-3border-bottom-0 m-1 ">
                                 <h6 class="fw-semibold mb-0">Tên Sản Phẩm</h6>
@@ -27,6 +27,9 @@
                             </th>
                             <th class="row-cols-3 border-bottom-0 m-1">
                                 <h6 class="fw-semibold mb-0">Ngày tạo</h6>
+                            </th>
+                            <th class="row-cols-3 border-bottom-0 m-1">
+                                <h6 class="fw-semibold mb-0">Hình Ảnh</h6>
                             </th>
                             <th class="row-cols-3 border-bottom-0 m-1">
                                 <h6 class="fw-semibold mb-0">Hành động</h6>
@@ -53,6 +56,9 @@
                                 </td>
                                 <td class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0 fs-4">{{date("d-m-Y"), strtotime($product['created_at'])}}</h6>
+                                </td>
+                                <td class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0 fs-4"><img src="{{ asset('customer/assets/image/menu/' . $product['image_product']) }}" alt="Hình ảnh sản phẩm" style="width: 100px; height: 100px;"></h6>
                                 </td>
                                 <td class="border-bottom-0">
                                     <a href="{{url('admin/product/add_edit_product/'.$product['id'])}}"><i class="ti ti-edit"></i></a>

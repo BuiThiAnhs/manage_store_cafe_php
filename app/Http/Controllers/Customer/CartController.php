@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
+use App\Models\CouponTable;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -14,80 +16,20 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cartItems = Cart::content();
+        $carts = Cart::content();
         $total =Cart::total();
-        $subtotal= Cart::subtotal();
-        return view('customer.cart.cart')->with(compact('cartItems', 'total','subtotal'));
+//        $subtotal= Cart::subtotal();
+//        dd(Cart::content());
+        return view('customer.cart.cart')->with(compact('carts', 'total'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function destroy(Request $request ,$rowId)
     {
-//        // Validate the request
-//        $request->validate([
-//            'id' => 'required|integer', // Assuming 'id' is the product ID
-//            'name_product' => 'required|string',
-//            'price_product' => 'required|numeric',
-//            // Add other validation rules as needed
-//        ]);
-//        // Add the product to the cart
-//        if ($request->ajax())
-//        {
-//            $product = Product::find($request->productID);
-//            $response['cart']= Cart::add([
-//                'id' => $product->id,
-//                'name_product' => $product->name_product,
-//                'price_product' => $product->price_product,
-//                'image_product' =>$product->image_product
-//                // Add other product details as needed
-//            ]);
-//            $response['amount']= Cart::amount();
-//            $response['total'] = Cart::total();
-//            return $response;
-//        }
-//        return redirect('customer/cart/cart');
-    }
+        if ($request->ajax()){
+           $reponse['cart'] =Cart::remove($request->rowId);
+           $reponse['total'] = Cart:: total();
+           return $reponse;
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
     }
     public function addCart(Request $request)
     {
@@ -97,7 +39,7 @@ class CartController extends Controller
 
             if ($product) {
                 $response['cart'] = Cart::add([
-//                    'id' => $product->id,
+                    'id' => $product->id,
                     'name' => $product->name_product,
                     'price' => $product->price_product,
                     'qty' => 1, // Số lượng ban đầu
@@ -111,5 +53,44 @@ class CartController extends Controller
             }
         }
         return back();
+    }
+    public function checkTable(){
+        $availableTable =CouponTable::where('status','1')->count();
+        if ($availableTable >0)
+        {
+            $response = CouponTable::where('status', '1')->orderBy('id', 'asc')->first('id');
+            return "Bàn của bạn là :" .$response;
+        }
+        else{
+            return " Hết bàn ";
+        }
+    }
+    public function checkCoupon(){
+
+    }
+    public function addCoupon(Request $request)
+    {
+        if ($request->ajax())
+        {
+            $coupon =Cart::find($request->id);
+
+            if ($coupon) {
+            $response['coupon']=   Coupon::add(['id'=>$coupon->id,'name'=>$coupon->name, 'qty'=>$coupon->qty, 'price_total'=>$coupon->total]);
+                return $response;
+            }
+        }
+        return back();
+    }
+    public function updateTableStatus($id) {
+        $table = CouponTable::find($id);
+
+        if ($table) {
+            $table->status = true; // Chuyển trạng thái của bàn thành 0
+            $table->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
     }
 }

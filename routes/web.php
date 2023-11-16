@@ -33,13 +33,17 @@ Route::prefix('/')->group(function (){
     Route::prefix('menu')->group(function (){
       Route::get('/productlist',[\App\Http\Controllers\Customer\ProductsController::class,'show']);
       Route::get ('/productdetail/{type?}',[\App\Http\Controllers\Customer\ProductsController::class,'index']);
+      Route::get('/cart_add', [\App\Http\Controllers\Customer\CartController::class, 'addCart']);
 
     });
     Route::get('/home',[\App\Http\Controllers\Customer\HomeController::class,'index']);
     Route::get('/about',[\App\Http\Controllers\Customer\VeChungToiController::class,'show']);
     Route::get('/cart', [\App\Http\Controllers\Customer\CartController::class, 'index']);
-    Route::get('/cart_add', [\App\Http\Controllers\Customer\CartController::class, 'addCart']);
-
+    Route::get('/cart_delete', [\App\Http\Controllers\Customer\CartController::class, 'destroy']);
+    Route::get('/check_table',[\App\Http\Controllers\Customer\CartController::class,'checkTable']);
+    Route::post('/update_table/{$id}',[\App\Http\Controllers\Customer\CartController::class,'updateTableStatus']);
+    Route::get('/check_coupon',[\App\Http\Controllers\Customer\CartController::class,'checkCoupon']);
+    Route::get('/add_coupon',[\App\Http\Controllers\Customer\CartController::class,'addCoupon']);
 });
 //todo: Admin
 

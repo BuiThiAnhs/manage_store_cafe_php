@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::get()->toArray();
+        $products =  Product::query()->paginate(9);
         return view('customer.home.home') ->with(compact('products'));
     }
 

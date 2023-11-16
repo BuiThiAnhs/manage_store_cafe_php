@@ -107,6 +107,7 @@
 
 <!-- Custom JS File Link  -->
 <script src="{{url('customer/assets/js/script.js')}}"></script>
+<script src="{{url('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
 </body>
 

@@ -7,7 +7,7 @@
                 <div class="pricing-column col-lg-4 col-md-6 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <span class="shop-item-title" ><h3>@if($product['name_product']) {{ $product['name_product']}} @endif</h3></span>
+                            <span class="shop-item-title" ><h3>@if($product['name_product']){{ $product['name_product']}}  @endif</h3></span>
                         </div>
                         <div class="card-body">
                             <img class="card-image shop-item-image align-items-center"  @if($product['image_product']) src="{{ asset('customer/assets/image/menu/' . $product['image_product'])}}"  @endif alt="">
@@ -30,7 +30,7 @@
         function addCart(productID) {
             $.ajax({
                 type: "GET",
-                url: "/cart_add",
+                url: "menu/cart_add",
                 data: { productID: productID },
                 success: function (response) {
                     $('.cart-total-price').text('$' + response['total']);

@@ -14,8 +14,10 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cartItems = Cart::all();
-        return view('customer.cart.cart')->with(compact('cartItems'));
+        $cartItems = Cart::content();
+        $total =Cart::total();
+        $subtotal= Cart::subtotal();
+        return view('customer.cart.cart')->with(compact('cartItems', 'total','subtotal'));
     }
 
     /**
@@ -87,23 +89,26 @@ class CartController extends Controller
     {
         //
     }
-    public function addToCart(Request $request)
+    public function addCart(Request $request)
     {
         if ($request->ajax())
         {
-            $product = Product::find($request->productId);
+            $product = Product::find($request->productID);
 
-            $response = Cart::add([
-                'id' => $product->id,
-                'name' => $product->name_product,
-                'price' => $product->price_product,
-                'qty' => 1, // Số lượng ban đầu
-            ]);
-            $response['count'] = Cart::count();
-            $response['total']=Cart::total();
+            if ($product) {
+                $response['cart'] = Cart::add([
+//                    'id' => $product->id,
+                    'name' => $product->name_product,
+                    'price' => $product->price_product,
+                    'qty' => 1, // Số lượng ban đầu
+                ]);
+                $response['total'] = Cart::total();
 
-            return  $response;
-
+                return $response;
+            } else {
+                // Trả về thông báo lỗi hoặc xử lý lỗi tương ứng
+                return response()->json(['error' => 'Product not found'], 404);
+            }
         }
         return back();
     }

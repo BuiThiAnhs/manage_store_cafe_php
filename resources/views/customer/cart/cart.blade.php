@@ -11,15 +11,15 @@
     <div class="cart-items">
 
 {{-- todo: sanphamdathemgiohang--}}
-        @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $cart)
-            <div class="cart-row" data-rowId ="{{$cart['rowId']}}">
+        @foreach($cartItems as $cart)
+            <div data-rowId="{{$cart['rowId']}}"  class= "cart-row">
                 <div class="cart-item cart-column">
                     <span class="cart-item-title">{{$cart['name']}}</span>
                 </div>
                 <span class="cart-price cart-column">{{$cart['price']}}</span>
                 <div class="cart-quantity cart-column">
 
-                    <input class="cart-quantity-input" type="number" @if($cart['qty']) value="{{$cart['qty']}}" @endif >
+                    <input class="cart-quantity-input" type="number" value="{{$cart['qty']}}" >
                     <button class="btn btn-danger" type="button">REMOVE</button>
                 </div>
             </div>
@@ -31,7 +31,7 @@
             Sử dụng tại chỗ.
         </label>
         <strong class="cart-total-title">Thanh Toán</strong>
-        <span class="cart-total-price"> value="${{\Gloudemans\Shoppingcart\Facades\Cart::total()}}"</span>
+        <span class="cart-total-price"> {{$total}}"</span>
     </div>
 </section>
 

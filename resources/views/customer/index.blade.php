@@ -47,7 +47,7 @@
     </nav>
 
     @if(\Illuminate\Support\Facades\Auth::guard('customer')->check())
-        <a class="btn" onclick="location.href='/cart_add'"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
+        <a class="btn" onclick="location.href='/cart'"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
         <a onclick="location.href='/logout'" class="btn"> Đăng Xuất</a>
     @else
         <a onclick="location.href='/login'" class="btn"> Đăng Nhập</a>
@@ -102,26 +102,11 @@
 
 <!-- SWIPER -->
 <script src="{{url('https://unpkg.com/swiper@7/swiper-bundle.min.js')}}"></script>
+<script src="{{url('admin/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{url('admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 
 <!-- Custom JS File Link  -->
 <script src="{{url('customer/assets/js/script.js')}}"></script>
-<script>
-    function addCart(productID) {
-        $.ajax({
-            type :"GET",
-            url:"cart_add",
-            data:{productID: productID},
-            success: function (response) {
-                $('cart-total-price').text('$'+response['total']);
-                var cart_items = $('.cart-items');
-                var cart_items_exist= cart_items.find()
-            },
-            error:function (response) {
-
-            },
-        })
-    }
-</script>
 
 </body>
 

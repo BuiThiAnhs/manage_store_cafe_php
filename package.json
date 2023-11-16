@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "datatables.net-dt": "^1.13.7",
+        "jquery": "^3.7.1",
         "sweetalert2": "^11.9.0"
     }
 }

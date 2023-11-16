@@ -29,8 +29,8 @@
     <script>
         function addCart(productID) {
             $.ajax({
-                type: "GET",
                 url: "/cart_add",
+                type: "get",
                 data: { productID: productID },
                 success: function (response) {
                     $('.cart-total-price').text('$' + response['total']);

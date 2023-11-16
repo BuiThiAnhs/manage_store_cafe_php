@@ -11,7 +11,7 @@
                     <div style="height: 40px;">
                         <select id="product_select" class="form-select" name="type" style="height: 100%;">
                             @foreach($product as $product_id => $product_name)
-                                <option>{{  $product_name }} </option>
+                                <option value="{{ $product_id }}">{{ $product_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -41,10 +41,10 @@
                     @foreach($components as $component)
                         <tr>
                             <th class="row-cols-3 border-bottom-0 ">
-                                <h6 class="fw-semibold mb-0">{{ $component->product_id }}</h6>
+                                <h6 class="fw-semibold mb-0">{{ $component->ingredient_id }}</h6>
                             </th>
                             <th class="row-cols-3 border-bottom-0 ">
-                                <h6 class="fw-semibold mb-0">{{ $component->quantity }}</h6>
+                                <h6 class="fw-semibold mb-0">{{ $component->amount }}</h6>
                             </th>
                         </tr>
                     @endforeach
@@ -74,7 +74,7 @@
                                         <tbody>
                                             @foreach($ingredients as $ingredientId => $ingredientName)
                                                 <tr>
-                                                    <th class="row-cols-3 border-bottom-0">
+                                                    <th class="row-cols-3 border-bottom-0" data-ingredient-id="{{ $ingredientId }}">
                                                         <h6 class="fw-semibold mb-0">{{ $ingredientName }}</h6>
                                                     </th>
                                                     <td>
@@ -82,6 +82,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                        </tbody>
                                     </table>
                             </div>
                             <div class="modal-footer">

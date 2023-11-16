@@ -36,11 +36,26 @@ class ProductsController extends Controller
     public function components(Request $request){
         $ingredients = Ingredient::get()->pluck('name_ingredient', 'id');
         $productId = $request->input('productId');
+        $product = Product::get()->pluck('name_product', 'id');
+        $components = ComponentProduct::where('product_id', $productId)->get();
 
-        $components = ComponentProduct::where('product_id', $productId)->get()->pluck('ingredient_id', 'product_id');
-
-        return view('admin.products.product_formula')->with(compact('productId', 'components', 'ingredients'));
+        return view('admin.products.product_formula')->with(compact('productId','product', 'components', 'ingredients'));
     }
+
+    public function  insertIngredients(Request $request)
+    {
+        $ingredients = $request->input('ingredients');
+        foreach ($ingredients as $ingredient) {
+            ComponentProduct::create([
+                'product_id' => $ingredient['product_id'],
+                'ingredient_id' => $ingredient['ingredient_id'],
+                'amount' => $ingredient['amount'],
+            ]);
+        }
+
+        return response()->json(['success' => true]);
+    }
+
 
     /**
      * Display the specified resource.
